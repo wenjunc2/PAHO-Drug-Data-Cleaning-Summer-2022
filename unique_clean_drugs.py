@@ -23,7 +23,6 @@ sh1 = file.sheet_by_index(0)
 print( u"sheet %s has %d rows %d columns." % (sh1.name, sh1.nrows, sh1.ncols))
 
 # Get and print a specific value in one cell
-# print( "第一行第二列的值为:", sh1.cell_value(0, 1))
 
 # Get all values in one row or column.
 row0 = sh1.row_values(0) # row of all titles of columns
@@ -50,7 +49,7 @@ for i in range(len(unique_catalog_names)):
 
 print(fuzz.ratio("123","1234"))
 
-print(fuzz.partial_ratio("123","1234"), fuzz.token_sort_ratio("114514", "114514810"))
+print(fuzz.partial_ratio("123","1234"))
 
 
 # Now we deal with drugs in the first file, from Chile
