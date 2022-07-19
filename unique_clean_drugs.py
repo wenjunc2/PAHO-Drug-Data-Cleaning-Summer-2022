@@ -7,6 +7,8 @@ from fuzzywuzzy import process
 
 from pandas import *
 
+from googletrans import Translator
+
 # open the CleanDataBase
 file = xlrd.open_workbook("/home/larrychen/MSFinance/summer2022/MLMapping/MLMapping/localmapping/CleanDataBase.xls")
 
@@ -23,6 +25,7 @@ sh1 = file.sheet_by_index(0)
 print( u"sheet %s has %d rows %d columns." % (sh1.name, sh1.nrows, sh1.ncols))
 
 # Get and print a specific value in one cell
+# print( "第一行第二列的值为:", sh1.cell_value(0, 1))
 
 # Get all values in one row or column.
 row0 = sh1.row_values(0) # row of all titles of columns
@@ -76,6 +79,18 @@ print(len(unique_chile_1), len(sorted(list(set(col11_chile_1))))) # A unique lis
 for i in range(len(unique_chile_1)):
     sheet.write(i + 1, 1, unique_chile_1[i])
     
+    
+# espanol to english
+english_unique_chile_1 = []
+translator = Translator(service_urls=['translate.googleapis.com']) 
+# discarded
+
+for x in unique_chile_1:
+    english_unique_chile_1.append(translator.translate(x, dest='en').text)
+    
+print(len(english_unique_chile_1))
+
+
 chile1_drug_catalog = []
 
 
@@ -85,7 +100,7 @@ chile1_drug_catalog = []
 # # Get a list of matches ordered by score, default limit to 5
 # print(process.extractOne(query, choices)[0], type(process.extract(query, choices)))
 
-for x in unique_chile_1:
+for x in english_unique_chile_1:
     chile1_drug_catalog.append(process.extractOne(x, unique_catalog_names)[0])
     
 print(len(chile1_drug_catalog))
